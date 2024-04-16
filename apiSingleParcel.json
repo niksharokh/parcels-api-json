@@ -1,0 +1,201 @@
+[
+    {
+      "LandCaseFile":{
+        "OBJECTID": 1000,
+        "LCFileNum": "3501-23/1",
+        "LCFileDate": "2023-12-29",
+        "Organization": 100035563,
+        "Surveyor": "Иванов А.А.",
+        "WorkType": {
+          "code": 2,
+          "description": "Проект отвода с установлением границы земельного участка"
+        },
+        "ParcelsCount": 1,
+        "AreaSum": 0.1200,
+        "AttachFileInfo": [
+          {
+            "OBJECTID": 100,
+            "LCFileId": 1000,
+            "DecisionId": null,
+            "FileName": "3501-23-1.pdf",
+            "FileSize": 16986931,
+            "FileVersion": 1,
+            "Reference": "https://gismap.by/filestore/LandCaseFiles/12587"
+          }
+        ]
+      },
+      "Parcels": [
+        {
+          "OBJECTID": 212300,
+          "CadNum": null,
+          "Boundary":{
+            "OBJECTID": 5923592,
+            "BoundaryType": {
+              "code": 1,
+              "description": "Фиксированная граница"
+            },
+            "SurveyWay":{
+              "code": 1,
+              "description": "Геодезический"
+            },
+            "ParcelArea": 0.1200,
+            "geometry": {
+              "rings": [
+                  [
+                      [
+                          2209502.5999999996,
+                          5930228.0299999993
+                      ],
+                      [
+                          2209540.6699999999,
+                          5930206.6400000006
+                      ],
+                      [
+                          2209526.5800000001,
+                          5930183.0199999996
+                      ],
+                      [
+                          2209488.8899999997,
+                          5930204.1600000001
+                      ],
+                      [
+                          2209491.9699999997,
+                          5930210.2300000004
+                      ],
+                      [
+                          2209502.5999999996,
+                          5930228.0299999993
+                      ]
+                  ]
+              ]
+            }
+          },
+          "Purpose":{
+            "OBJECTID":1254,
+            "DecicsionPurpose": "для строительства и обслуживания одноквартирного жилого дома",
+            "ObjectAssingment":{
+              "code": 10904,
+              "description": "Земельный участок для размещения объектов усадебной застройки (строительства и обслуживания одноквартирного (блокированного) жилого дома) с объектами обслуживания"
+            },
+            "LandCategory": {
+              "code": 2,
+              "description": "Земли населенных пунктов, садоводческих товариществ, дачных кооперативов"
+            }
+          },
+          "Entitlement":[
+            {
+              "OBJECTID":1254,
+              "LandUser": {
+                "OBJECTID": 2578,
+                "UserType": {
+                  "code": 0,
+                  "description": "Для проведения аукциона"
+                },
+                "RegNum": "600211646",
+                "FullNaming": "Добриневский сельский исполнительный комитет",
+                "ShortNaming": "Добринёвский сельисполком"
+              },
+              "RightType": {
+                "code": 1000,
+                "description": "Частная собственность"
+              },
+              "Percentage": 100.00,
+              "UsePeriod": null
+            }
+          ],
+          "Address": {
+            "OBJECTID": 9874,
+            "AdressId":null,
+            "SOATO": "6222820026",
+            "Region": "Минская",
+            "District": "Дзержинский",
+            "Selsovet": "Добринёвский",
+            "SettlementCategory": "аг.",
+            "Settlement": "Даниловичи",
+            "InnerAddressType": null,
+            "InnerAddress": null,
+            "HouseNum": null,
+            "HouseIndex": null,
+            "Housing": null,
+            "kmNumber": null,
+            "Remark": null
+          },
+          "Restrictions": [
+            {
+              "OBJECTID": 8523,
+              "RestrictionType": {
+                "code": 204,
+                "description": "2.4 Природные территории, подлежащие специальной охране (водоохранные зоны)"
+              },
+              "RestrictionObject": "река Жесть",
+              "SurveyWay": {
+                "code": 1,
+                "description": "По ЗИС"
+              },
+              "RestrictionArea": 0.1200,
+              "geometry": {
+                "rings": [
+                    [
+                        [
+                            2209502.5999999996,
+                            5930228.0299999993
+                        ],
+                        [
+                            2209540.6699999999,
+                            5930206.6400000006
+                        ],
+                        [
+                            2209526.5800000001,
+                            5930183.0199999996
+                        ],
+                        [
+                            2209488.8899999997,
+                            5930204.1600000001
+                        ],
+                        [
+                            2209491.9699999997,
+                            5930210.2300000004
+                        ],
+                        [
+                            2209502.5999999996,
+                            5930228.0299999993
+                        ]
+                    ]
+                ]
+              }
+            }
+          ],
+          "Conditions":[],
+          "Stage": {
+            "OBJECTID": 154,
+            "Organization": 600211646,
+            "Specialist": "Петров П.И.",
+            "StartDate": "2024-03-07T12:12:54.123+03:00",
+            "Status": {
+              "code": 301,
+              "description": "Принято решение"
+            },
+            "Remark": "Для проведения аукциона"
+          }
+        }
+      ],
+      "Conditions":[],
+      "Decision":{
+        "OBJECTID": 125,
+        "DecisionNum": "1587",
+        "DecisionDate": "2024-03-06",
+        "StateAuthority": 600211646,
+        "ValidityPeriod": 2,
+        "LandServiceOfficer": "Петров П.И.",
+        "AttachFileInfo": {
+          "OBJECTID": 101,
+          "LCFileId": null,
+          "DecisionId": 125,
+          "FileName": "1587-23.pdf",
+          "FileSize": 8388601,
+          "FileVersion": 1,
+          "Reference": "https://gismap.by/filestore/Decisions/12588"
+        }
+      }
+    }
+  ]

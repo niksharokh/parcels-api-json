@@ -1,0 +1,16 @@
+{
+  "OBJECTID": 12500,
+  "CadNum": "620450100001000397",
+  "RegDate": null,
+  "RegType": null,
+  "Stage": {
+    "Organization": 600013237,
+    "Specialist": "Петров В.И.",
+    "StartDate": "2024-03-07T12:12:54.123+03:00",
+    "Status": {
+      "code": 406,
+      "description": "Принято заявление на регистрацию"
+    },
+    "Remark": null
+  }
+}

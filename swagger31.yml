@@ -1,0 +1,1109 @@
+openapi: 3.1.0
+servers:
+  - description: виртуальный сервер
+    url: https://virtserver.swaggerhub.com/NIKSHAROKH/parcels-api/v1
+info:
+  description: >-
+    Методы электронного информационного взаимодействия геопортала ЗИС и АИС РН в
+    режиме \"система-система\" в целях осуществления государственной регистрации
+    в отношении земельных участков с учтановленными границами. Посредством API
+    предоставляются сведения о земельных участках с установленными границами,
+    сведения о землеустроительных делах и решениях государственных органов в
+    отношении этих земельных участков
+  version: 1.0.0
+  title: API для информационного взаимодействия геопортала ЗИС и АИС РН
+  contact:
+    name: УП "Проектный институт Белгипрозем"
+    url: https://gismap.by/#/about
+    email: geo@belgiprozem.by
+paths:
+  /landcasefiles:
+    get:
+      summary: Поиск и получение землеустроительных дел
+      operationId: searchLCFiles
+      description: >
+        Поиск землеустроительных дел по заданным параметрам (дате и номеру
+        землеустроительного дела, 
+
+        кадастровому номеру, адресу, землепользователю земельного участка, дате,
+        номеру решения)
+      parameters:
+        - in: query
+          name: num
+          description: >-
+            регистрационный (исходящий) номер землеустроительного дела в
+            оформившей его организации
+          required: false
+          schema:
+            $ref: '#/components/schemas/DocNum'
+        - in: query
+          name: date
+          description: >-
+            дата регистрации (исходящая) землеустроительного дела в оформившей
+            его организации
+          required: false
+          schema:
+            $ref: '#/components/schemas/DocDate'
+        - in: query
+          name: organisation
+          description: >-
+            регистрационный номер (УНП) организации, индивидуального
+            предпринимателя,  оформившего землеустроительное дело
+          required: false
+          schema:
+            $ref: '#/components/schemas/UNP'
+        - $ref: '#/components/parameters/cadNumParam'
+          description: >-
+            кадастровый номер земельного участка, содержащегося в
+            землеустроительном деле
+        - $ref: '#/components/parameters/decisionNumParam'
+          description: >-
+            регистрационный номер решения государственного органа в отношении
+            земельного участка, содержащегося в землеустроительном деле
+        - $ref: '#/components/parameters/decisionDateParam'
+          description: >-
+            регистрационная дата решения государственного органа в отношении
+            земельного участка, содержащегося в землеустроительном деле
+        - $ref: '#/components/parameters/stateAuthorityParam'
+          description: >-
+            регистрационный номер (УНП) государственного органа, принявшего
+            решение
+        - $ref: '#/components/parameters/landUserParam'
+          description: >-
+            регистрационный номер землепользователя (УНП организации,
+            индивидуального предпринимателя, личный номер физического лица) 
+            земельного участка, содержащегося в землеустроительном деле
+        - $ref: '#/components/parameters/addressParam'
+          description: адрес земельного участка, содержащегося в землеустроительном деле
+        - $ref: '#/components/parameters/skipParam'
+        - $ref: '#/components/parameters/limitParam'
+      responses:
+        '200':
+          description: по заданным параметрам найдены землеустроительные дела
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/LandCaseFileWithRelated'
+        '400':
+          description: заданы неверные параметры поиска
+  /landcasefiles/{lcFileId}:
+    get:
+      summary: Получение землеустроительного дела по его идентификатору
+      operationId: getLCFileById
+      description: >
+        Поиск и получение землеустроительного дела по идентификатору этого
+        землеустроительного дела, содержащемуся в запросе
+      parameters:
+        - in: path
+          name: lcFileId
+          description: идентификатор землеустроительного дела в базе данных геопортала
+          required: true
+          schema:
+            $ref: '#/components/schemas/OBJECTID'
+      responses:
+        '200':
+          description: по указанному идентификатору найдено землеустроительное дело
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LandCaseFileWithRelated'
+        '400':
+          description: неверный идентификатор
+  /parcels:
+    get:
+      summary: Поиск и получение сведений о земельных участках
+      operationId: searchParcels
+      description: >
+        Поиск и получение сведений о земельных участках по параметрам,
+        содержащимся в запросе
+      parameters:
+        - $ref: '#/components/parameters/cadNumParam'
+        - $ref: '#/components/parameters/landUserParam'
+        - $ref: '#/components/parameters/addressParam'
+        - $ref: '#/components/parameters/skipParam'
+        - $ref: '#/components/parameters/limitParam'
+      responses:
+        '200':
+          description: по заданным параметрам найдены сведения о земельных участках
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Parcel'
+        '400':
+          description: заданы неверные параметры поиска
+  /parcels/{parcelId}:
+    get:
+      summary: Получение сведений о земельном участке по его идентификатору
+      operationId: getParcelById
+      description: >
+        Поиск и получение сведений о земельном участке по идентификатору
+        земельного участка, содержащемуся в запросе
+      parameters:
+        - in: path
+          name: parcelId
+          description: идентификатор земельного участка в базе данных геопортала
+          required: true
+          schema:
+            $ref: '#/components/schemas/OBJECTID'
+      responses:
+        '200':
+          description: по указанному идентификатору найдены сведения о земельном участке
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Parcel'
+        '400':
+          description: неверный идентификатор
+    post:
+      summary: >-
+        Передать на геопортал результат регистрационных действий и статус
+        информационного взаимодействия в отношении земельного участка
+      operationId: addRegistrationForParcel
+      description: >-
+        Передача на геопортал результата регистрационных действий и статуса
+        информационного взаимодействия, установленного регистратором
+      parameters:
+        - in: path
+          name: parcelId
+          description: идентификатор земельного участка в базе данных геопортала
+          required: true
+          schema:
+            $ref: '#/components/schemas/OBJECTID'
+      requestBody:
+        description: >-
+          Сведения о результатах регистрационных действий и статус
+          информационного взаимодействия
+        content:
+          application/json:
+            schema:
+              type: object
+              parameters:
+                OBJECTID:
+                  description: Идентификатор земельного участка на геопортале
+                  $ref: '#/components/schemas/OBJECTID'
+                CadNum:
+                  description: Присвоенный кадастровый номер земельного участка
+                  $ref: '#/components/schemas/CadNum'
+                RegDate:
+                  description: Дата и время осуществления регистрационного действия в отношении земельного участка
+                  $ref: '#/components/schemas/DateTime'
+                RegType:
+                  description: Осуществленное регистрационное действие в отношении земельного участка
+                  $ref: '#/components/schemas/RegType'
+                Stage:
+                  description: Этап информационного взаимодействия
+                  $ref: '#/components/schemas/Stage'
+              required:
+                - OBJECTID
+                - CadNum
+                - RegDate
+                - RegType
+                - Stage
+      responses:
+        '201':
+          description: >-
+            добавлены результаты государственной регистрации и статус
+            информационного взаимодействия
+        '400':
+          description: неверные входящие данные
+        '409':
+          description: Принятая запись уже существует
+  /decisions:
+    get:
+      summary: Поиск и получение сведений о решениях
+      operationId: searchDecisions
+      description: Поиск сведений о решениях государственных органов в отношении земельных участков
+      parameters:
+        - $ref: '#/components/parameters/decisionNumParam'
+        - $ref: '#/components/parameters/decisionDateParam'
+        - $ref: '#/components/parameters/stateAuthorityParam'
+        - $ref: '#/components/parameters/cadNumParam'
+        - $ref: '#/components/parameters/landUserParam'
+        - $ref: '#/components/parameters/addressParam'
+        - $ref: '#/components/parameters/skipParam'
+        - $ref: '#/components/parameters/limitParam'
+      responses:
+        '200':
+          description: по заданным параметрам найдены сведения о решениях
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Decision'
+        '400':
+          description: заданы неверные параметры поиска
+  /decisions/{decisionId}:
+    get:
+      summary: Получение по его идентификатору сведений о решении
+      operationId: getDecisionById
+      description: >
+        Получение сведений о решении государственного органа (местного
+        исполнительного комитета,  администрации свободной экономической зоны) в
+        отношении земельного участка
+      parameters:
+        - in: path
+          name: decisionId
+          description: идентификатор решения в базе данных геопортала
+          required: true
+          schema:
+            $ref: '#/components/schemas/OBJECTID'
+      responses:
+        '200':
+          description: по указанному идентификатору найдены сведения о решении
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Decision'
+        '400':
+          description: неверный идентификатор
+components:
+  schemas:
+    LandCaseFileWithRelated:
+      description: >-
+        Землеустроительное дело со связанными земельными участками и решениями
+        государственного органа
+      type: object
+      required:
+        - LandCaseFile
+        - Parcels
+        - Decisions
+      properties:
+        LandCaseFile:
+          $ref: '#/components/schemas/LandCaseFile'
+        Parcels:
+          description: >-
+            Земельные участки, входящие в состав землеустроительного дела, а
+            также связанные  (нормализуемые, прекращаемые, изменяемые), с их
+            характеристиками
+          type: array
+          items:
+            $ref: '#/components/schemas/Parcel'
+        Conditions:
+          description: >-
+            Условия, которые необходимо выполнить для государственной
+            регистрации  в отношении земельных участков, содержащихся в
+            землеустроительном деле
+          type: array
+          items:
+            description: >-
+              Номер условия, соответсвующий списку условий в пределах
+              землеустроительного дела
+            $ref: '#/components/schemas/Condition'
+        Decisions:
+          description: >-
+            Решения государственного органа в отношении земельных участков,
+            содержащихся в землеустроительном деле, с прикрепленными файлами
+          type: array
+          items:
+            $ref: '#/components/schemas/Decision'
+    LandCaseFile:
+      description: Землеустроительное дело с прикрепленными файлами
+      type: object
+      properties:
+        OBJECTID:
+          description: >-
+            Уникальный идентификатор землеустроительного дела в базе данных
+            геопортала
+          $ref: '#/components/schemas/OBJECTID'
+        LCFileNum:
+          description: Регистрационный номер (индекс) землеустроительного дела
+          $ref: '#/components/schemas/DocNum'
+        LCFileDate:
+          description: Регистрационная дата землеустроительного дела
+          $ref: '#/components/schemas/DocDate'
+        Organization:
+          description: Регистрационный номер (УНП) организации-исполнителя работ
+          $ref: '#/components/schemas/UNP'
+        Surveyor:
+          description: Cпециалист-исполнитель работ
+          type: string
+          maxLength: 30
+          examples:
+            - Петров М.В.
+        WorkType:
+          description: Вид землеустроительных работ
+          type: object
+          properties:
+            code:
+              description: Код землеустроительных работ
+              $ref: '#/components/schemas/Int99Num'
+              maximum: 20
+            description:
+              description: Наименование землеустроительных работ
+              type: string
+              maxLength: 85
+              examples:
+                - Проект отвода с установлением границы земельного участка
+          required:
+            - code
+            - description
+        ParcelsCount:
+          description: Количество земельных участков в составе землеустроительного дела
+          type: integer
+          format: int32
+          minimum: 1
+          examples:
+            - 2
+        AreaSum:
+          description: Общая площадь земельных участков в составе землеустроительного дела
+          $ref: '#/components/schemas/Area'
+        AttachFilesInfo:
+          description: Вложенные файлы
+          type: array
+          items:
+            $ref: '#/components/schemas/AttachFileInfo'
+      required:
+        - OBJECTID
+        - LCFileDate
+        - Organization
+        - Surveyor
+        - WorkType
+        - ParcelsCount
+        - AreaSum
+    Parcel:
+      description: Земельный участок
+      type: object
+      properties:
+        OBJECTID:
+          description: Уникальный идентификатор земельного участка в базе данных геопортала
+          $ref: '#/components/schemas/OBJECTID'
+        CadNum:
+          $ref: '#/components/schemas/CadNum'
+        Boundary:
+          $ref: '#/components/schemas/Boundary'
+        Purpose:
+          $ref: '#/components/schemas/Purpose'
+        Entitlements:
+          description: Права на земельный участок
+          type: array
+          items:
+            $ref: '#/components/schemas/Entitlement'
+        Address:
+          $ref: '#/components/schemas/Address'
+        Restrictions:
+          description: Ограничения прав на земельный участок
+          type: array
+          items:
+            $ref: '#/components/schemas/Restriction'
+        Stage:
+          $ref: '#/components/schemas/Stage'
+        Conditions:
+          description: >-
+            Перечень условий, выполнение которых необходимо перед
+            государственной регистрацией в отношении земельного участка
+          type: array
+          items:
+            description: >-
+              Номер условия ConditionNum, соответсвующий списку условий
+              Conditions в рамках землеустроительного дела
+            $ref: '#/components/schemas/Int99Num'
+      required:
+        - OBJECTID
+        - Stage
+    Boundary:
+      description: Граница земельного участка
+      type: object
+      properties:
+        BoundaryType:
+          description: Тип границы земельного участка
+          type: object
+          properties:
+            code:
+              description: Код типа границы земельного участка
+              $ref: '#/components/schemas/Int9Num'
+              minimum: 1
+              maximum: 2
+            description:
+              description: Описание типа границы земельного участка
+              type: string
+              maxLength: 25
+              enum:
+                - Фиксированная граница
+                - Нефиксированная граница
+              examples:
+                - Фиксированная граница
+          required:
+            - code
+            - description
+        SurveyWay:
+          description: Способ определения координат границы земельного участка
+          type: object
+          properties:
+            code:
+              description: Код способа
+              $ref: '#/components/schemas/Int9Num'
+              minimum: 1
+              maximum: 4
+            description:
+              description: >-
+                Описание способа определения координат границы земельного
+                участка
+              type: string
+              maxLength: 65
+              examples:
+                - Геодезический
+          required:
+            - code
+            - description
+        ParcelArea:
+          description: Площадь земельного участка
+          $ref: '#/components/schemas/Area'
+        geometry:
+          $ref: '#/components/schemas/geometry'
+      required:
+        - BoundaryType
+        - SurveyWay
+        - ParcelArea
+        - geometry
+    geometry:
+      description: Электронный каталог координат полигонального объекта
+      type: object
+      properties:
+        rings:
+          description: Границы
+          type: array
+          minItems: 1
+          items:
+            description: Граница
+            type: array
+            minItems: 3
+            items:
+              description: Точка поворота
+              type: array
+              minItems: 2
+              maxItems: 2
+              items:
+                description: Координата
+                type: number
+                format: double
+                minimum: 1120000
+                maximum: 6230000
+                pattern: ^\d{7}\.?\d*$
+                examples:
+                  - 2318780.6
+                  - 5959329.21
+        spatialReference:
+          description: Описание системы отсчета координат
+          type: object
+          properties:
+            wkid:
+              description: Код EPSG системы отсчета координат
+              type: integer
+              format: int32
+              minimum: 0
+              examples:
+                - 3352
+            wkt:
+              description: Описание системы отсчета координат, не имеющей кода
+              type: string
+              examples:
+                - PROJCS["Pulkovo_1942_CS63_Zone_C3",GEOGCS["GCS_Pulkovo_1942",DATUM["D_Pulkovo_1942",SPHEROID["Krasovsky_1940",6378245.0,298.3]],PRIMEM["Greenwich",0.0],UNIT["Degree",0.0174532925199433]],PROJECTION["Gauss_Kruger"],PARAMETER["False_Easting",3250000.0],PARAMETER["False_Northing",0.0],PARAMETER["Central_Meridian",30.95],PARAMETER["Scale_Factor",1.0],PARAMETER["Latitude_Of_Origin",0.1],UNIT["Meter",1.0]]
+      required:
+        - rings
+    Restriction:
+      description: Ограничение прав на земельный участок
+      type: object
+      properties:
+        RestrictionType:
+          description: Тип ограничения прав на земельный участок
+          type: object
+          properties:
+            code:
+              description: Код ограничения прав
+              $ref: '#/components/schemas/Int999Num'
+              minimum: 1
+            description:
+              description: Описание ограничения прав
+              type: string
+              maxLength: 205
+              examples:
+                - >-
+                  5.2 Охранные зоны объектов инженерной инфраструктуры
+                  (электрических сетей)
+          required:
+            - code
+            - description
+        RestrictionObject:
+          description: Наименование объекта, для охраны которого введено органичение прав
+          type: string
+          maxLength: 50
+          examples:
+            - река Мажа
+        SurveyWay:
+          description: Способ определения границы ограничения прав
+          type: object
+          properties:
+            code:
+              description: Код способа
+              $ref: '#/components/schemas/Int9Num'
+              minimum: 1
+              maximum: 3
+            description:
+              description: Описание способа определения границы
+              type: string
+              maxLength: 50
+              examples:
+                - По наземным признакам и геодезической съемке
+          required:
+            - code
+            - description
+        RestrictionArea:
+          description: Площадь ограничения прав
+          $ref: '#/components/schemas/Area'
+        geometry:
+          $ref: '#/components/schemas/geometry'
+      required:
+        - RestrictionType
+        - SurveyWay
+        - RestrictionArea
+        - geometry
+    Condition:
+      description: >-
+        Условие (регистрационное действие в отношении смежного, изменяемого
+        земельного участка), которое необходимо выполнить перед государственной
+        регистрацией в отношении основного земельного участка
+      type: object
+      properties:
+        ConditionNum:
+          description: Номер условия в пределах землеустроительного дела
+          $ref: '#/components/schemas/Int99Num'
+        RegType:
+          description: Вид необходимых регистрационных действий в отношении земельного участка
+          $ref: '#/components/schemas/RegType'
+        Parcel:
+          description: >-
+            Земельный участок, в отношении которого необходимо совершить
+            предварительные регистрационные действия
+          $ref: '#/components/schemas/Parcel'
+      required:
+        - ConditionNum
+        - RegType
+        - Parcel
+    Stage:
+      description: Этап информационного взаимодействия
+      type: object
+      properties:
+        Organization:
+          description: Организация-участник информационного взаимодействия
+          $ref: '#/components/schemas/UNP'
+        Specialist:
+          description: Специалист, установивший статус
+          type: string
+          maxLength: 30
+          examples:
+            - Петров М.В.
+        StartDate:
+          description: Дата установления статуса
+          $ref: '#/components/schemas/DateTime'
+        Status:
+          description: Статус информационного взаимодействия посредством геопортала
+          type: object
+          properties:
+            code:
+              description: Код статуса
+              $ref: '#/components/schemas/Int999Num'
+              maximum: 500
+            description:
+              description: Наименование статуса
+              type: string
+              maxLength: 45
+              examples:
+                - Принято решение
+          required:
+            - code
+            - description
+        Remark:
+          description: Дополнительная информация
+          type: string
+          maxLength: 1000
+          examples:
+            - В том числе нормализованный земельный участок
+      required:
+        - Organization
+        - Specialist
+        - StartDate
+        - Status
+    Address:
+      description: Адрес земельного участка
+      type: object
+      required:
+        - SOATO
+        - Region
+        - District
+      properties:
+        AddressId:
+          description: Уникальный идентификатор адреса в реестре адресов
+          type: integer
+          format: int64
+          examples:
+            - 15654
+        SOATO:
+          description: Код СОАТО (SOATO)
+          type: string
+          maxLength: 10
+          minLength: 10
+          examples:
+            - '6204501000'
+        Region:
+          description: Наименование области
+          type: string
+          maxLength: 20
+          examples:
+            - Минская
+        District:
+          description: Наименование района
+          type: string
+          maxLength: 30
+          examples:
+            - Березинский
+        Selsovet:
+          description: Наименование сельсовета
+          type: string
+          maxLength: 30
+          examples:
+            - Зембинский
+        SettlementCategory:
+          description: Категория населенного пункта
+          type: string
+          maxLength: 30
+          examples:
+            - г.
+        Settlement:
+          description: Наименование населенного пункта
+          type: string
+          maxLength: 50
+          examples:
+            - Березино
+        InnerAddressType:
+          description: Тип элемента внутреннего адреса
+          type: string
+          maxLength: 20
+          examples:
+            - Улица
+        InnerAddress:
+          description: Наименование элемента внутреннего адреса
+          type: string
+          maxLength: 50
+          examples:
+            - Мультана
+        HouseNum:
+          description: Номер строения
+          $ref: '#/components/schemas/Int9999Num'
+          minimum: 1
+        HouseIndex:
+          description: Индекс строения
+          type: string
+          maxLength: 5
+          examples:
+            - А
+        Housing:
+          description: Номер корпуса
+          $ref: '#/components/schemas/Int99Num'
+          minimum: 1
+        kmNumber:
+          description: Расстояние от начала автомобильной дороги, км
+          type: number
+          format: float
+          minimum: 0.001
+          examples:
+            - 15.2
+        Remark:
+          description: Дополнительные информация об адресе
+          type: string
+          maxLength: 100
+    Purpose:
+      description: Целевое назначение земельного участка
+      type: object
+      required:
+        - DecicsionPurpose
+        - ObjectAssingment
+        - LandCategory
+      properties:
+        DecicsionPurpose:
+          description: Целевое назначение земельного участка по решению
+          type: string
+          maxLength: 1000
+          examples:
+            - для строительства и обслуживания котельной
+        ObjectAssingment:
+          description: >-
+            Назначение объекта недвижимого имущества (земельного участка) по
+            классификатору
+          type: object
+          properties:
+            code:
+              description: Код назначения
+              type: integer
+              format: int32
+              minimum: 10000
+              maximum: 20000
+              pattern: \d{5}
+              examples:
+                - 11617
+            description:
+              description: Наименование назначения
+              type: string
+              maxLength: 350
+              examples:
+                - >-
+                  Земельный участок для размещения объектов коммунального
+                  хозяйства
+          required:
+            - code
+            - description
+        LandCategory:
+          description: Категория земель
+          type: object
+          properties:
+            code:
+              description: Код категории земель
+              $ref: '#/components/schemas/Int9Num'
+              minimum: 1
+              maximum: 7
+            description:
+              description: Наименование категории земель
+              type: string
+              maxLength: 90
+              examples:
+                - >-
+                  Земли промышленности, транспорта, связи, энергетики, обороны и
+                  иного назначения
+          required:
+            - code
+            - description
+    Entitlement:
+      description: Права на земельный участок
+      type: object
+      properties:
+        LandUser:
+          description: Описание землепользователя
+          type: object
+          properties:
+            UserType:
+              description: Тип землепользователя
+              type: object
+              properties:
+                code:
+                  description: Код типа землепользователя
+                  $ref: '#/components/schemas/Int99Num'
+                  minimum: 0
+                  maximum: 15
+                description:
+                  description: Описание типа землепользователя
+                  type: string
+                  maxLength: 200
+                  examples:
+                    - Юридическое лицо, резидент Республики Беларусь
+              required:
+                - code
+                - description
+            RegNum:
+              oneOf:
+                - $ref: '#/components/schemas/UNP'
+                - $ref: '#/components/schemas/PersNum'
+            FullNaming:
+              description: Полное наименование землепользователя
+              type: string
+              maxLength: 250
+              examples:
+                - >-
+                  Районное коммунальное унитарное производственное предприятие
+                  "Березинское ЖКХ"
+            ShortNaming:
+              description: Краткое наименование землепользователя
+              type: string
+              maxLength: 50
+              examples:
+                - РКУПП "Березинское ЖКХ"
+          required:
+            - UserType
+            - RegNum
+            - FullNaming
+        RightType:
+          description: Вид права
+          type: object
+          properties:
+            code:
+              description: Код права
+              $ref: '#/components/schemas/Int9999Num'
+              minimum: 1000
+            description:
+              description: Наименование права
+              type: string
+              maxLength: 35
+              examples:
+                - Постоянное пользование
+          required:
+            - code
+            - description
+        Percentage:
+          description: Доля в праве
+          type: number
+          format: float
+          exclusiveMinimum: 0
+          maximum: 100
+          pattern: ^\d{1,3}\.?\d*$
+          examples:
+            - 33.33
+        UsePeriod:
+          description: Срок временного пользования, аренды
+          $ref: '#/components/schemas/Int999Num'
+          minimum: 3
+          maximum: 1188
+      required:
+        - LandUser
+        - RightType
+        - Percentage
+    Decision:
+      description: Решение государственного органа в отношении земельного участка
+      type: object
+      properties:
+        OBJECTID:
+          description: Уникальный идентификатор решения в базе данных геопортала
+          $ref: '#/components/schemas/OBJECTID'
+        DecisionNum:
+          $ref: '#/components/schemas/DocNum'
+        DecisionDate:
+          $ref: '#/components/schemas/DocDate'
+        StateAuthority:
+          $ref: '#/components/schemas/UNP'
+        ValidityPeriod:
+          description: Срок действия решения
+          $ref: '#/components/schemas/Int999Num'
+          minimum: 1
+          maximum: 1188
+        LandServiceOfficer:
+          description: Специалист подразделения землеустройства
+          type: string
+          maxLength: 30
+          examples:
+            - Петров М.В.
+        AttachFilesInfo:
+          description: Вложенные файлы
+          type: array
+          items:
+            $ref: '#/components/schemas/AttachFileInfo'
+      required:
+        - OBJECTID
+        - DecisionNum
+        - DecisionDate
+        - StateAuthority
+        - ValidityPeriod
+        - LandServiceOfficer
+    AttachFileInfo:
+      description: Прикрепленный файл документа в электронном виде
+      type: object
+      properties:
+        FileName:
+          description: Наименование файла
+          type: string
+          maxLength: 250
+          examples:
+            - 1078-24-1.pdf
+        FileSize:
+          description: Размер файла
+          type: integer
+          format: int64
+          minimum: 0
+          examples:
+            - 114973665
+        FileVersion:
+          description: Версия файла
+          $ref: '#/components/schemas/Int9Num'
+          minimum: 1
+        Reference:
+          description: Ссылка для скачивания файла
+          type: string
+          format: url
+          maxLength: 1000
+          minLength: 20
+          examples:
+            - filestore/LandCaseFiles/12587
+    Int9Num:
+      description: Простое число в пределах 0-9
+      type: integer
+      format: int32
+      minimum: 0
+      exclusiveMaximum: 10
+      examples:
+        - 1
+    Int99Num:
+      description: Простое число в пределах 0-99
+      type: integer
+      format: int32
+      minimum: 0
+      exclusiveMaximum: 100
+      examples:
+        - 18
+    Int999Num:
+      description: Простое число в пределах 0-999
+      type: integer
+      format: int32
+      minimum: 0
+      exclusiveMaximum: 1000
+      examples:
+        - 189
+    Int9999Num:
+      description: Простое число в пределах 0-9999
+      type: integer
+      format: int32
+      minimum: 0
+      exclusiveMaximum: 10000
+      examples:
+        - 1423
+    OBJECTID:
+      description: Уникальный идентификатор
+      type: integer
+      format: int64
+      minimum: 0
+      examples:
+        - 15426
+    CadNum:
+      description: Кадастровый номер земельного участка
+      type: string
+      maxLength: 18
+      minLength: 18
+      pattern: ^\d{18}$
+      examples:
+        - '620450100001000307'
+    DocNum:
+      description: Номер документа
+      type: string
+      maxLength: 15
+      examples:
+        - 12516-р
+    DocDate:
+      description: Дата согласно стандарту ISO 8601
+      type: string
+      format: date
+      pattern: ^(20\d{2}|19\d{2})[./-](0?[1-9]|1[0-2])[./-](0?[1-9]|[1-2][0-9]|30|31)$
+      examples:
+        - '2024-03-06'
+    DateTime:
+      description: Дата и время с учетом часового пояса согласно стандарту ISO 8601
+      type: string
+      format: date-time
+      pattern: >-
+        ^(?<CompleteMatch>(?:(?<DateMonthYear>(20\d{2}|19\d{2})[./-](0?[1-9]|1[0-2])[./-](0?[1-9]|[1-2][0-9]|30|31))
+        T(?<Time>(0?[1-9]|1[0-9]|2[0-3]):\d{2}:\d{2}(?:\.\d+)?))(?<TimeZone>Z|[\+-](0?[1-9]|1[0-2]):\d{2})?)$
+      examples:
+        - '2024-03-07T12:12:54.123+03:00'
+    PersNum:
+      description: Личный номер физического лица
+      type: string
+      minLength: 14
+      maxLength: 14
+      pattern: ^\d{7}[ABCEHKM]{1}\d{3}[ABGIP]{2}\d{1}$
+      examples:
+        - 4270689B063PB3
+    UNP:
+      description: Регистрационный номер (УНП) организации, индивидуального предпринимателя
+      type: integer
+      format: int64
+      minimum: 100000000
+      pattern: ^\d{9}$
+      examples:
+        - 600041227
+    Area:
+      description: Площадь полигона
+      type: number
+      format: float
+      minimum: 0.0001
+      pattern: ^\d*\.?\d*$
+      examples:
+        - 0.8031
+    RegType:
+      description: >-
+        Вид необходимых регистрационных действий в отношении земельного участка
+      type: object
+      properties:
+        code:
+          description: Код регистрационного действия
+          $ref: '#/components/schemas/Int9Num'
+          minimum: 1
+          maximum: 7
+        description:
+          description: Описание регистрационного действия
+          type: string
+          maxLength: 50
+          examples:
+            - Изменение земельного участка
+      required:
+        - code
+        - description
+  parameters:
+    decisionNumParam:
+      in: query
+      name: decisionNum
+      description: номер решения государственного органа
+      required: false
+      schema:
+        $ref: '#/components/schemas/DocNum'
+    decisionDateParam:
+      in: query
+      name: decisionDate
+      description: дата решения государственного органа
+      required: false
+      schema:
+        $ref: '#/components/schemas/DocDate'
+    stateAuthorityParam:
+      in: query
+      name: stateAuthority
+      description: регистрационный номер (УНП) государственного органа
+      required: false
+      schema:
+        $ref: '#/components/schemas/UNP'
+    cadNumParam:
+      in: query
+      name: cadNum
+      description: кадастровый номер земельного участка
+      required: false
+      schema:
+        $ref: '#/components/schemas/CadNum'
+    landUserParam:
+      in: query
+      name: landUser
+      description: >-
+        регистрационный номер землепользователя (УНП организации,
+        индивидуального предпринимателя, личный номер физического лица) 
+        земельного участка
+      required: false
+      schema:
+        oneOf:
+          - $ref: '#/components/schemas/UNP'
+          - $ref: '#/components/schemas/PersNum'
+    addressParam:
+      in: query
+      name: address
+      description: адрес земельного участка
+      required: false
+      schema:
+        $ref: '#/components/schemas/Address'
+    skipParam:
+      in: query
+      name: skip
+      description: >-
+        количество пропускаемых записей для постраничного вывода результатов
+        поиска
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+        default: 0
+    limitParam:
+      in: query
+      name: limit
+      description: >-
+        количество возвращаемых записей для постраничного вывода результатов
+        поиска
+      schema:
+        type: integer
+        format: int32
+        exclusiveMinimum: 0
+        maximum: 50
+        default: 10

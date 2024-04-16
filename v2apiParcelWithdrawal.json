@@ -1,0 +1,365 @@
+[
+    {
+      "LandCaseFile":{
+        "OBJECTID": 1000,
+        "LCFileNum": "1078-24/1",
+        "LCFileDate": "2024-02-29",
+        "Organization": 100035563,
+        "Surveyor": "Теренев М.В.",
+        "WorkType": {
+          "code": 2,
+          "description": "Проект отвода с установлением границы земельного участка"
+        },
+        "ParcelsCount": 1,
+        "AreaSum": 0.0837,
+        "AttachFileInfo": [
+          {
+              "OBJECTID": 100,
+              "LCFileId": 1000,
+              "DecisionId": null,
+              "FileName": "1078-24-1.pdf",
+              "FileSize": 114973665,
+              "FileVersion": 1,
+              "Reference": "filestore/LandCaseFiles/12587"
+          }
+        ]
+      },
+      "Parcels": [
+        {
+          "OBJECTID": 12500,
+          "CadNum": null,
+          "Actuality": 2,
+          "Boundary":{
+            "OBJECTID": 6054366,
+            "Actuality": 2,
+            "BoundaryType": {
+              "code": 1,
+              "description": "Фиксированная граница"
+            },
+            "SurveyWay":{
+              "code": 1,
+              "description": "Геодезический"
+            },
+            "ParcelArea": 0.0837,
+            "geometry": {
+              "rings": [
+                  [
+                      [
+                          2318851.640,
+                          5959338.990
+                      ],
+                      [
+                          2318893.750,
+                          5959344.580
+                      ],
+                      [
+                          2318895.360,
+                          5959323.950
+                      ],
+                      [
+                          2318857.380,
+                          5959318.790
+                      ]
+                  ]
+              ]
+            }
+          },
+          "Purpose":{
+            "OBJECTID":1254,
+            "DecicsionPurpose": "для строительства и обслуживания котельной",
+            "ObjectAssingment":{
+              "code": 11617,
+              "description": "Земельный участок для размещения объектов коммунального хозяйства"
+            },
+            "LandCategory": {
+              "code": 3,
+              "description": "Земли промышленности, транспорта, связи, энергетики, обороны и иного назначения"
+            }
+          },
+          "Entitlement":[
+            {
+              "OBJECTID":1254,
+              "LandUser": {
+                "OBJECTID": 2578,
+                "UserType": {
+                  "code": 7,
+                  "description": "Юридическое лицо, резидент Республики Беларусь"
+                },
+                "RegNum": "600035578",
+                "FullNaming": "Районное коммунальное унитарное производственное предприятие \"Березинское ЖКХ\"",
+                "ShortNaming": "РКУПП \"Березинское ЖКХ\""
+              },
+              "RightType": {
+                "code": 3000,
+                "description": "Постоянное пользование"
+              },
+              "Percentage": 100.00,
+              "UsePeriod": null
+            }
+          ],
+          "Address": {
+            "OBJECTID": 9874,
+            "AdressId":null,
+            "SOATO": "6204501000",
+            "Region": "Минская",
+            "District": "Березинский",
+            "Selsovet": null,
+            "SettlementCategory": "г.",
+            "Settlement": "Березино",
+            "InnerAddressType": "Улица",
+            "InnerAddress": "Мультана",
+            "HouseNum": 94,
+            "HouseIndex": null,
+            "Housing": null,
+            "kmNumber": null,
+            "Remark": null
+          },
+          "Restrictions": [
+            {
+              "OBJECTID": 8523,
+              "Actuality": 2,
+              "RestrictionType": {
+                "code": 204,
+                "description": "2.4 Природные территории, подлежащие специальной охране (водоохранные зоны)"
+              },
+              "RestrictionObject": "река Березина",
+              "SurveyWay": {
+                "code": 1,
+                "description": "По ЗИС"
+              },
+              "RestrictionArea": 0.0837,
+              "geometry": {
+                "rings": [
+                    [
+                        [
+                            2318851.640,
+                            5959338.990
+                        ],
+                        [
+                            2318893.750,
+                            5959344.580
+                        ],
+                        [
+                            2318895.360,
+                            5959323.950
+                        ],
+                        [
+                            2318857.380,
+                            5959318.790
+                        ]
+                    ]
+                ]
+              }
+            },
+            {
+                "OBJECTID": 8524,
+                "Actuality": 2,
+                "RestrictionType": {
+                  "code": 52,
+                  "description": "5.2 Охранные зоны объектов инженерной инфраструктуры (электрических сетей)"
+                },
+                "RestrictionObject": null,
+                "SurveyWay": {
+                  "code": 2,
+                  "description": "По наземным признакам и геодезической съемке"
+                },
+                "RestrictionArea": 0.0008,
+                "geometry": {
+                  "rings": [
+                      [
+                          [
+                              2318856.960,
+                              5959320.220
+                          ],
+                          [
+                              2318867.480,
+                              5959320.140
+                          ],
+                          [
+                              2318857.380,
+                              5959318.790
+                          ]
+                      ]
+                  ]
+                }
+              }
+          ],
+          "Stage": {
+            "OBJECTID": 154,
+            "Organization": 600041227,
+            "Specialist": "Петров П.И.",
+            "StartDate": "2024-03-07T12:12:54.123+03:00",
+            "Status": {
+              "code": 301,
+              "description": "Принято решение"
+            },
+            "Remark": null
+          },
+          "Conditions":[1]
+        }
+      ],
+      "Conditions":[
+        {
+        "ConditionNum": 1,
+        "RegType":{
+          "code": 1,
+          "description": "Изменение земельного участка"
+        },
+        "Parcel":{
+            "OBJECTID": 12501,
+            "CadNum": null,
+            "Actuality": 2,
+            "Boundary":{
+              "OBJECTID": 6054367,
+              "Actuality": 2,
+              "BoundaryType": {
+                "code": 1,
+                "description": "Фиксированная граница"
+              },
+              "SurveyWay":{
+                "code": 1,
+                "description": "Геодезический"
+              },
+              "ParcelArea": 0.8030,
+              "geometry": {
+                "rings": [
+                    [
+                        [
+                            2318780.5999999996,
+                            5959329.2100000009
+                        ],
+                        [
+                            2318788.0199999996,
+                            5959330.2300000004
+                        ],
+                        [
+                            2318789.25,
+                            5959321.3100000005
+                        ],
+                        [
+                            2318794.7000000002,
+                            5959322.0600000005
+                        ],
+                        [
+                            2318793.4800000004,
+                            5959330.9800000004
+                        ],
+                        [
+                            2318851.6399999997,
+                            5959338.9900000002
+                        ],
+                        [
+                            2318857.3799999999,
+                            5959318.7899999991
+                        ],
+                        [
+                            2318868.9299999997,
+                            5959285.0199999996
+                        ],
+                        [
+                            2318885.0800000001,
+                            5959234.3000000007
+                        ],
+                        [
+                            2318818.0899999999,
+                            5959214.4800000004
+                        ],
+                        [
+                            2318780.5999999996,
+                            5959329.2100000009
+                        ]
+                    ]
+                ]
+              }
+            },
+            "Restrictions": [
+              {
+                  "OBJECTID": 8525,
+                  "Actuality": 2,
+                  "RestrictionType": {
+                    "code": 52,
+                    "description": "5.2 Охранные зоны объектов инженерной инфраструктуры (электрических сетей)"
+                  },
+                  "RestrictionObject": null,
+                  "SurveyWay": {
+                    "code": 2,
+                    "description": "По наземным признакам и геодезической съемке"
+                  },
+                  "RestrictionArea": 0.1184,
+                  "geometry": {
+                    "rings": [
+                        [
+                            [
+                                2318780.600,
+                                5959329.210
+                            ],
+                            [
+                                2318788.020,
+                                5959330.230
+                            ],
+                            [
+                                2318789.250,
+                                5959321.310
+                            ],
+                            [
+                                2318794.700,
+                                5959322.060
+                            ],
+                            [
+                                2318793.480,
+                                5959330.980
+                            ],
+                            [
+                                2318851.640,
+                                5959338.990
+                            ],
+                            [
+                                2318854.140,
+                                5959330.190
+                            ],
+                            [
+                                2318788.640,
+                                5959304.590
+                            ]
+                        ]
+                    ]
+                  }
+                }
+            ],
+            "Stage": {
+              "OBJECTID": 155,
+              "Organization": 600041227,
+              "Specialist": "Петров П.И.",
+              "StartDate": "2024-03-07T12:12:54.123+03:00",
+              "Status": {
+                "code": 301,
+                "description": "Принято решение"
+              },
+              "Remark": null
+            }
+        }
+        }
+      ],
+      "Decisions":[
+        {
+          "OBJECTID": 125,
+          "DecisionNum": "125",
+          "DecisionDate": "2024-03-06",
+          "StateAuthority": 600041227,
+          "ValidityPeriod": 2,
+          "LandServiceOfficer": "Петров П.И.",
+          "AttachFileInfo": [
+              {
+                  "OBJECTID": 101,
+                  "LCFileId": null,
+                  "DecisionId": 125,
+                  "FileName": "125-24.pdf",
+                  "FileSize": 8388601,
+                  "FileVersion": 1,
+                  "Reference": "filestore/Decisions/125-24"
+              }
+          ]
+        }
+      ]
+    }
+  ]

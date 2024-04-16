@@ -1,0 +1,38 @@
+{
+  "OBJECTID": 12500,
+  "CadNum": "620450100001000397",
+  "RegDate": "2024-03-15T12:25:15.123+03:00",
+  "RegType": [
+    {
+    "code": 7,
+    "description": "Внесение исправлений в регистр недвижимости"
+    }
+  ],
+  "Address": {
+    "OBJECTID": 9874,
+    "AdressId":6974053,
+    "SOATO": "6204501000",
+    "Region": "Минская",
+    "District": "Березинский",
+    "Selsovet": null,
+    "SettlementCategory": "г.",
+    "Settlement": "Березино",
+    "InnerAddressType": "Улица",
+    "InnerAddress": "Мультана",
+    "HouseNum": 94,
+    "HouseIndex": null,
+    "Housing": null,
+    "kmNumber": null,
+    "Remark": null
+  },
+      "Stage": {
+    "Organization": 600013237,
+    "Specialist": "Петров В.И.",
+    "StartDate": "2024-03-15T12:25:16.123+03:00",
+    "Status": {
+      "code": 403,
+      "description": "Внесены исправления в регистр недвижимости"
+    },
+    "Remark": null
+  }
+}
